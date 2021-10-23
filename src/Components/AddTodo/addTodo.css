@@ -1,0 +1,9 @@
+input,[text]{
+    border: 1px outset lightgrey !important;
+    font-size: 19px !important;
+}
+.addTodoContainer{
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    padding: 11px;
+    border-radius: 12px;    
+}

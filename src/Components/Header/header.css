@@ -1,0 +1,28 @@
+.logo{
+    cursor: pointer;
+    margin-left: 30px;
+    filter:invert(100%); -webkit-filter: invert(100%)  !important;
+    width: 40px;
+    background: none;
+    font-family: ui-monospace;
+}
+.nav-link{
+    color: white;
+}
+.nav-link:hover{
+    border-bottom: 1px solid white;
+    color: rgb(230, 215, 245);
+}
+.dropDown{
+    display: flex;
+    justify-content: right;
+}
+.dropdown-menu{
+    padding: 0px !important;
+    min-width: 7.5rem !important;
+}
+@media only screen and (max-width: 768px) {
+    .navbar-brand{
+        margin-left: -26px;
+    }
+ }
