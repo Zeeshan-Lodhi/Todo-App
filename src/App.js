@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import AddTodo from "./Components/AddTodo/AddTodo"
 import Footer from "./Components/Footer/Footer"
 import Header from "./Components/Header/Header"
+import { Switch, Route } from "react-router-dom";
+
 import './app.css'
 import TodoItems from './Components/todoItems/TodoItems'
+import HomePage from './Components/HomePage/HomePage';
 
 //Get todos from LocalStorage 
 const getLocalStorageTodos = () => {
@@ -31,6 +34,17 @@ export class App extends Component {
 
   //For Adding todos (This func will call in AddTodo component)
   addTodoFunc = (title, desc) => {
+
+    // Here checking the title is already exist or not
+    // const matchTitle = this.state.todos.filter((elm) => {
+    //   return elm.title === title
+    // })
+
+    // if (matchTitle[0].title === title) {
+    //   alert("Title already exist")
+    // }
+    // else {
+
     //Here we make single Todo object, 
     const myTodo = {
       id: new Date().getTime().toString(),
@@ -39,6 +53,8 @@ export class App extends Component {
       time: new Date().toLocaleString()
     }
     this.setState({ todos: [...this.state.todos, myTodo], title: "", description: "" })
+
+    // }
   }
 
   //Getting Edit todo When user click on edit button(This func will call in TodoItems component)
@@ -70,11 +86,13 @@ export class App extends Component {
 
   //Deleting todos when user click on Delete button (This func will call in TodoItems component)
   delTodo = (id) => {
-    this.setState({
-      todos: this.state.todos.filter((elm) => {
-        return elm.id !== id
+    if (window.confirm("Are you sure")) {
+      this.setState({
+        todos: this.state.todos.filter((elm) => {
+          return elm.id !== id
+        })
       })
-    })
+    }
   }
 
   //Set todos in LocalStorage =>Every time our state will change, This will Re-Render our component
@@ -86,17 +104,23 @@ export class App extends Component {
     return (
       <>
         <Header />
-        <AddTodo
-          addTodoFunc={this.addTodoFunc} title={this.state.title}
-          description={this.state.description}
-          handleOnChangeTitle={this.handleOnChangeTitle}
-          handleOnChangeDescription={this.handleOnChangeDescription}
-          changeBtn={this.state.changeBtn} addEditTodo={this.addEditTodo}
-        />
+        <Switch>
 
-        <TodoItems
-          allTodos={this.state.todos}
-          editTodo={this.editTodo} delTodo={this.delTodo} />
+          <Route exact path="/"> <HomePage /></Route>
+          <Route path="/todos">
+            <AddTodo
+              addTodoFunc={this.addTodoFunc} title={this.state.title}
+              description={this.state.description}
+              handleOnChangeTitle={this.handleOnChangeTitle}
+              handleOnChangeDescription={this.handleOnChangeDescription}
+              changeBtn={this.state.changeBtn} addEditTodo={this.addEditTodo} />
+
+            <TodoItems
+              allTodos={this.state.todos}
+              editTodo={this.editTodo} delTodo={this.delTodo} />
+          </Route>
+
+        </Switch>
         <Footer />
       </>
     )

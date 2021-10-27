@@ -9,6 +9,9 @@
 .nav-link{
     color: white;
 }
+.links{
+    margin :0px 15px; 
+}
 .nav-link:hover{
     border-bottom: 1px solid white;
     color: rgb(230, 215, 245);
